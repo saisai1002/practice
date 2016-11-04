@@ -1,0 +1,27 @@
+{include file='common/header' /}
+<div class="row">
+    <div class="col-md-3">
+        {include file='common/left' /}
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            {content:category pid='$category.id' return='data'/}
+            {foreach name='data' item='vo'}
+            {eq name='vo.ebcms_url' value=''}
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><a href="{$vo.url}">{$vo.title}</a></div>
+                        <div class="list-group">
+                        {content:list category_id='$vo.id' level='1' cache='20' limit='5' return='lists'/}
+                        {foreach name='lists' item='vs'}
+                            <a href="{$vs.url}" class="list-group-item" style="{$vs.style}"> <strong>{$key+1}</strong>. {$vs.shorttitle|mb_substr=0,24}</a>
+                        {/foreach}
+                        </div>
+                    </div>
+                </div>
+            {/eq}
+            {/foreach}
+        </div>
+    </div>
+</div>
+{include file='common/footer' /}

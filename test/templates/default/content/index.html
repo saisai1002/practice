@@ -1,0 +1,18 @@
+{include file='common/header' /}
+<div class="row">
+    <div class="col-md-3">
+        {include file='common/left' /}
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">{$category.title}</div>
+            <div class="list-group">
+                {foreach name='lists' item='vo'}
+                <a href="{$vo.url}" class="list-group-item">{$vo.title}<span class="badge">{$vo.create_time|date='Y-m-d H:i',###}</span></a>
+                {/foreach}
+            </div>
+        </div>
+        {$page}
+    </div>
+</div>
+{include file='common/footer' /}

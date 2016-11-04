@@ -1,0 +1,16 @@
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="pull-right"><a href="#">Back to top</a></p>
+                <p>
+                    © 2014 EBtech, Inc. · <a href="#">Privacy</a> · <a href="#">EB Terms</a>
+                    {ebcms:nav mark='bottom' return='nav' tree='1' /}
+                    {foreach name="nav" item="vo" }
+                          <a href="{$vo.url}">{$vo.title}</a>  
+                    {/foreach}
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

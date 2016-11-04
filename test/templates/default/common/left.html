@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+	<div class="panel-heading">推荐</div>
+	<div class="list-group">
+		{ebcms:recommend mark='index_tuijian' limit='4' return='data'/}
+		{foreach name="data" item="vo" }
+			<a href="{$vo.url}" class="list-group-item" style="{$vo.style}">{$vo.title|mb_substr=0,16}</a>
+		{/foreach}
+	</div>
+</div>
+<div class="panel panel-default">
+	{ebcms:single id='2' return='data'/}
+	<div class="panel-heading">{$data.title}</div>
+	<div class="panel-body">
+		{$data.body|htmlspecialchars_decode}
+	</div>
+</div>

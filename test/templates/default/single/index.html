@@ -1,0 +1,24 @@
+{include file='common/header' /}
+<div class="row">
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">{$single.group}</div>
+            <div class="list-group">
+                {ebcms:single group='$single.group' return='data' /}
+                {foreach name='data' item='vo'}
+                    <a href="{$vo.url}" class="list-group-item">{$vo.title}</a>
+                {/foreach}
+            </div>
+        </div>
+        {include file='common/left' /}
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h1>{$single.title}</h1><hr>
+                {$single.body|htmlspecialchars_decode}
+            </div>
+        </div>
+    </div>
+</div>
+{include file='common/footer' /}

@@ -1,0 +1,51 @@
+<script>
+    $(function(){
+        EBCMS.{$namespace}.go = function go(queryParams){
+            EBCMS.CORE.submit({
+                url:'{:url('install/index/index')}',
+                queryParams:queryParams,
+                success:function(data){
+                    if (data.code) {
+                        var arr=data.data.info.split("<br>");
+                        EBCMS.{$namespace}.printstr(arr,0,data.data);
+                    }else{
+                        $('#{$namespace}process').append('<div>'+data.msg+'</div>');
+                        alert(data.msg);
+                    };
+                }
+            });
+        };
+        EBCMS.{$namespace}.printstr = function printstr(arr,index,data){
+            $('#{$namespace}process').append('<div>'+arr[index]+'</div>');
+            $("#{$namespace}process").animate({
+                scrollTop:99999,
+                },0);
+            if (index+1 == arr.length) {
+                if (data.process == 'end') {
+                    $('#{$namespace}processbtn').show();
+                    alert('安装成功！');
+                }else{
+                    EBCMS.{$namespace}.go({
+                        step:3,
+                        process:data.process
+                    });
+                };
+            }else{
+                setTimeout(function() {
+                    EBCMS.{$namespace}.printstr(arr,index+1,data);
+                }, 50);
+            }
+        };
+        EBCMS.{$namespace}.go({
+            step:3,
+            process:'createdatabase',
+        });
+    });
+</script>
+<div class="license" id="{$namespace}process"></div>
+<div class="toolbar">
+    <div class="pull-right" id="{$namespace}processbtn" style="display:none;">
+        <a type="button" class="btn btn-primary" href="./admin.php">进入后台</a>
+        <a type="button" class="btn btn-primary" href="{:url('index/index/index')}">浏览首页</a>
+    </div>
+</div>

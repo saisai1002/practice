@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>{$seo.title|default='易贝内容管理系统'}</title>
+    <meta name="keywords" content="{$seo.keywords|default='ebcms,易贝cms,内容管理系统'}">
+    <meta name="description" content="{$seo.description|default='易贝内容管理系统是一款开源的php内容管理系统'}">
+    <!-- Bootstrap -->
+    <link href="{:get_root()}/third/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 flowers of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="{:get_root()}/static/index/js/jquery.min.js"></script>
+    <script src="{:get_root()}/third/bootstrap/js/bootstrap.min.js"></script>
+    <!-- 引入iconfont -->
+    <link href="{:get_root()}/third/iconfont/iconfont.css" rel="stylesheet">
+    <!-- 前端公共样式 -->
+    <script src="{:get_root()}/static/index/js/home.js"></script>
+    <link href="{:get_root()}/static/index/css/home.css" rel="stylesheet">
+    <script>
+        $(function(){
+            EBCMS.CONFIG.verify_URL = '{:url('index/api/verify')}';
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div style="padding:10px;width: 250px;">
+                    <img src="{:get_root()}/static/index/image/logo.png">
+                </div>
+            </div>
+            <div class="col-md-8">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">EBCMS</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="main">
+                        <ul class="nav navbar-nav">
+                            {ebcms:nav mark='main' return='nav' tree='1' /}
+                            {foreach name="nav" item="vo" }
+                                {notempty name='vo.rows'}
+                                    <li class="dropdown">
+                                        <a href="{$vo.url}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$vo.title} <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            {foreach name='vo.rows' item='sub'}
+                                            <li><a href="{$sub.url}">{$sub.title}</a></li>
+                                            {/foreach}
+                                        </ul>
+                                    </li>
+                                {else /}
+                                    <li><a href="{$vo.url}">{$vo.title}</a></li>
+                                {/notempty}
+                            {/foreach}
+                        </ul>
+                        <form class="navbar-form navbar-right" role="search" method="get" action="{:url('index/content/search')}">
+                            <div class="input-group" id="searchgroup">
+                                <input type="text" name="q" class="form-control" placeholder="请输入关键字">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-danger">搜索</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row hidden-xs hidden-sm">
+            <div class="col-md-12">
+                <!-- 轮播 -->
+                {include file='common/slide' /}
+            </div>
+        </div>
+
+        <!-- 当前位置 -->
+        {ebcms:position return='position'/}
+        {if condition="count($position) > 1"}
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                {foreach name='position' item='vo'}
+                    <li><a href="{$vo.url}">{$vo.title}</a></li>
+                {/foreach}
+                </ol>
+            </div>
+        </div>
+        {/if}

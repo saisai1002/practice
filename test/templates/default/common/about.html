@@ -1,0 +1,7 @@
+<div class="panel panel-default">
+	{ebcms:single id='1' return='data'/}
+	<div class="panel-heading">{$data.title}</div>
+	<div class="panel-body">
+		{$data.body|htmlspecialchars_decode}
+	</div>
+</div>
